@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Episode</title>
+</head>
+<body>
+
+<h1>Upload Episode</h1>
+
+<form action="/add_episode" method="POST" enctype="multipart/form-data">
+
+    <p>Select Series</p>
+    <select name="series_id" required>
+
+        {% for series in series_list %}
+
+        <option value="{{ series.id }}">
+            {{ series.name }}
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+    <br><br>
+
+    <p>Episode Number</p>
+    <input type="number" name="episode_no" required>
+
+    <br><br>
+
+    <p>Episode Title</p>
+    <input type="text" name="title" required>
+
+    <br><br>
+
+    <p>Select Video</p>
+    <input type="file" name="video" accept="video/*" required>
+
+    <br><br>
+
+    <button type="submit">
+        Upload Episode
+    </button>
+
+</form>
+
+<br>
+
+<a href="/">⬅ Back to Home</a>
+
+</body>
+</html>

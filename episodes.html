@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Episodes</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<h1 style="text-align:center;">
+
+{{ series[0] }}
+
+</h1>
+
+<br>
+
+<div class="episode-container">
+
+</div>
+
+{% for episode in episodes %}
+
+<div class="episode-card">
+    
+</div>
+
+<h2>
+
+Episode {{ episode[1] }}
+
+</h2>
+
+<h3>
+
+{{ episode[2] }}
+
+</h3>
+
+<p>
+
+👁 Views : {{ episode[4] }}
+
+</p>
+
+<p>
+
+❤️ Likes : {{ episode[5] }}
+
+</p>
+
+<a href="/watch_episode/{{ episode[0] }}">
+    <button>
+        ▶ Watch Episode
+    </button>
+</a>
+<br><br>
+
+<a href="/edit_episode/{{ episode[0] }}">
+    <button style="background:#2196F3;color:white;">
+        ✏️ Edit Episode
+    </button>
+</a>
+<br><br>
+
+<a href="/delete_episode/{{ episode[0] }}"
+   onclick="return confirm('Delete this episode?')">
+    <button style="background:red;color:white;">
+        🗑 Delete Episode
+    </button>
+</a>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<br>
+
+<div style="text-align:center;">
+
+<a href="/">
+
+<button>
+
+⬅ Back To Home
+
+</button>
+
+</a>
+
+</div>
+
+</body>
+
+</html>

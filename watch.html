@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ episode[2] }}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<h1 style="text-align:center;">
+{{ episode[2] }}
+</h1>
+
+<div style="text-align:center;">
+
+<video id="player" width="900" controls autoplay>
+
+<source src="{{ url_for('static', filename='videos/' + episode[3]) }}" type="video/mp4">
+
+Your browser does not support HTML5 video.
+
+</video>
+
+</div>
+
+<br>
+
+<div style="text-align:center;">
+
+<h3>
+Episode {{ episode[1] }}
+</h3>
+
+<p>
+👁 Views : {{ episode[4] }}
+</p>
+
+<p>
+❤️ Likes : {{ episode[5] }}
+</p>
+<br>
+
+<a href="/like_episode/{{ episode[0] }}">
+    <button>
+        ❤️ Like
+    </button>
+</a>
+
+</div>
+
+<br>
+
+<div style="text-align:center; margin-top:20px;">
+
+    {% if previous_episode %}
+    
+    <a href="/watch_episode/{{ previous_episode[0] }}">
+        <button>
+            ⬅ Previous Episode
+        </button>
+    </a>
+    
+    {% endif %}
+    
+    &nbsp;&nbsp;
+    
+    <a href="/series/{{ series_id }}">
+        <button>
+            📋 Episode List
+        </button>
+    </a>
+    
+    &nbsp;&nbsp;
+    
+    {% if next_episode %}
+    
+    <a href="/watch_episode/{{ next_episode[0] }}">
+        <button>
+            Next Episode ➡
+        </button>
+    </a>
+    
+    {% endif %}
+    
+    </div>
+
+<hr>
+
+<h2>Comments</h2>
+
+<form action="/add_comment" method="POST">
+
+    <input type="hidden" name="episode_id" value="{{ episode[0] }}">
+
+    <input
+        type="text"
+        name="username"
+        placeholder="Your Name"
+        required>
+
+    <br><br>
+
+    <textarea
+        name="comment"
+        placeholder="Write your comment..."
+        required></textarea>
+
+    <br><br>
+
+    <button type="submit">
+        Post Comment
+    </button>
+
+</form>
+
+<hr>
+
+{% for comment in comments %}
+
+<div style="border:1px solid #ccc;padding:10px;margin-top:10px;">
+
+    <b>{{ comment[0] }}</b>
+
+    <p>{{ comment[1] }}</p>
+
+</div>
+
+{% endfor %}
+
+</button>
+
+</a>
+
+</div>
+
+<script>
+
+    const player = document.getElementById("player");
+    
+    player.addEventListener("ended", function(){
+    
+        {% if next_episode %}
+    
+        window.location.href="/watch_episode/{{ next_episode[0] }}";
+    
+        {% endif %}
+    
+    });
+    
+    </script>
+    <script>
+
+    const player = document.getElementById("player");
+    const key = "episode_" + {{ episode[0] }};
+    
+    // Save position every 2 seconds
+    setInterval(function () {
+    
+        if (!player.paused) {
+            localStorage.setItem(key, player.currentTime);
+        }
+    
+    }, 2000);
+    
+    // Restore after metadata loads
+    player.addEventListener("loadedmetadata", function () {
+    
+        let last = localStorage.getItem(key);
+    
+        if (last && parseFloat(last) > 0) {
+    
+            player.currentTime = parseFloat(last);
+    
+        }
+    
+    });
+    
+    // Start playing after seek completes
+    player.addEventListener("seeked", function () {
+    
+        player.play();
+    
+    });
+    
+    </script>
+
+</body>
+
+</html>

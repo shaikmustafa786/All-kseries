@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Episode</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<h1 style="text-align:center;">
+✏️ Edit Episode
+</h1>
+
+<form action="/update_episode" method="POST" enctype="multipart/form-data" style="width:500px;margin:auto;">
+
+    <input
+        type="hidden"
+        name="episode_id"
+        value="{{ episode[0] }}">
+
+    <input
+        type="hidden"
+        name="series_id"
+        value="{{ episode[1] }}">
+
+    <label>Episode Number</label>
+
+    <br><br>
+
+    <input
+        type="number"
+        name="episode_no"
+        value="{{ episode[2] }}"
+        required
+        style="width:100%;padding:10px;">
+
+    <br><br>
+
+    <label>Episode Title</label>
+
+    <br><br>
+
+    <input
+        type="text"
+        name="title"
+        value="{{ episode[3] }}"
+        required
+        style="width:100%;padding:10px;">
+
+    <br><br>
+
+    <label>Replace Video (Optional)</label>
+
+    <br><br>
+
+    <input
+        type="file"
+        name="video">
+
+    <br><br>
+
+    <button type="submit">
+        💾 Save Changes
+    </button>
+
+</form>
+
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<h1 style="text-align:center;">
+📊 Dashboard
+</h1>
+
+<div style="width:80%;margin:auto;">
+
+    <h2>📚 Total Series : {{ total_series }}</h2>
+
+    <h2>🎬 Total Episodes : {{ total_episodes }}</h2>
+
+    <h2>👁 Total Views : {{ total_views }}</h2>
+
+    <h2>💬 Total Comments : {{ total_comments }}</h2>
+
+    <hr>
+
+    <h2>🏆 Top 5 Most Viewed Series</h2>
+
+    <ol>
+
+    {% for item in top_series %}
+
+        <li>
+
+            <b>{{ item[0] }}</b>
+
+            ({{ item[1] }} Views)
+
+        </li>
+
+    {% endfor %}
+
+    </ol>
+
+    <br>
+
+    <a href="/">
+        <button>
+            ⬅ Back Home
+        </button>
+    </a>
+
+</div>
+
+</body>
+
+</html>
